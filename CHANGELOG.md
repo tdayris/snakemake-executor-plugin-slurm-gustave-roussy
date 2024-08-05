@@ -1,3 +1,9 @@
+# 0.3.3
+
+## Features:
+
+* Allow user to define slurm logs
+
 # 0.3.2
 
 ## Features:

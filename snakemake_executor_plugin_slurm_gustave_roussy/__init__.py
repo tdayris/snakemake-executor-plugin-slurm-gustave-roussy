@@ -176,10 +176,14 @@ class Executor(RemoteExecutor):
         # If required, make sure to pass the job's id to the job_info object, as keyword
         # argument 'external_job_id'.
 
-        log_folder: str = f"group_{job.name}" if job.is_group() else f"rule_{job.name}"
-        slurm_logfile: str = os.path.abspath(
-            f".snakemake/slurm_logs/{log_folder}/%j.log"
-        )
+        slurm_logfile = job.resources.get("logfile")
+        if slurm_logfile is None:
+            log_folder: str = (
+                f"group_{job.name}" if job.is_group() else f"rule_{job.name}"
+            )
+            slurm_logfile: str = os.path.abspath(
+                f".snakemake/slurm_logs/{log_folder}/%j.log"
+            )
         os.makedirs(os.path.dirname(slurm_logfile), exist_ok=True)
 
         # generic part of a submission string:
