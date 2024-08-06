@@ -1,3 +1,10 @@
+# 0.3.4
+
+## Features:
+
+* Allow the use of `walltime` and `time_min` to specify job `runtime`
+* Allow the use of `mem` and `mem_gb` to specify job `mem_mb`
+
 # 0.3.3
 
 ## Features:
