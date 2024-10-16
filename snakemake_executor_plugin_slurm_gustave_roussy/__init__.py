@@ -108,7 +108,9 @@ class Executor(RemoteExecutor):
     def additional_general_args(self) -> str:
         return "--executor slurm-jobstep --jobs 1"
 
-    def get_partition(self, runtime: int = 360, gres: Optional[str] = None, mem: int = 1_000) -> str:
+    def get_partition(
+        self, runtime: int = 360, gres: Optional[str] = None, mem: int = 1_000
+    ) -> str:
         """
         Return best partition based on runtime reservation
         and possible GPU resources reservation.
