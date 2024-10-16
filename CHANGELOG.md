@@ -1,3 +1,9 @@
+# 0.4.0
+
+## Features:
+
+* `bigmemq` automatically set when memory is higher than 500 000Mb
+
 # 0.3.4
 
 ## Features:

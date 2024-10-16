@@ -129,6 +129,9 @@ class Executor(RemoteExecutor):
 
                 return "gpuq"
 
+            if mem > 500_000:
+                return "bigmemq"
+
             if runtime <= 360:
                 return "shortq"
 
@@ -194,6 +197,14 @@ class Executor(RemoteExecutor):
             f"--comment {job.name} "
         )
 
+        memory_word: str = "mem_mb"
+        if "mem" in job.resources.keys():
+            memory_word = "mem"
+        if "mem_gb" in job.resources.keys():
+            memory_word = "mem_gb"
+        memory: int = job.resources.get(memory_word, self._default_mem)
+        call += f" --mem {memory}"
+
         runtime_word: str = "runtime"
         if "time_min" in job.resources.keys():
             runtime_word = "time_min"
@@ -201,7 +212,9 @@ class Executor(RemoteExecutor):
             runtime_word = "walltime"
         runtime: int = job.resources.get(runtime_word, self._default_runtime)
         partition: str = self.get_partition(
-            runtime=runtime, gres=job.resources.get("gres")
+            runtime=runtime,
+            gres=job.resources.get("gres"),
+            mem=memory,
         )
         if partition:
             call += f" --partition {partition} "
@@ -211,14 +224,6 @@ class Executor(RemoteExecutor):
         #    call += f" --nodelist='{node_name}' "
 
         call += f"--time {runtime} --cpus-per-task {job.threads}"
-
-        memory_word: str = "mem_mb"
-        if "mem" in job.resources.keys():
-            memory_word = "mem"
-        if "mem_gb" in job.resources.keys():
-            memory_word = "mem_gb"
-        memory: int = job.resources.get(memory_word, self._default_mem)
-        call += f" --mem {memory}"
 
         # ensure that workdir is set correctly
         # use short argument as this is the same in all slurm versions
