@@ -203,7 +203,7 @@ class Executor(RemoteExecutor):
         if "mem_gb" in job.resources.keys():
             memory_word = "mem_gb"
         memory: int = job.resources.get(memory_word, self._default_mem)
-        call += f" --mem {memory}"
+        call += f" --mem {memory} "
 
         runtime_word: str = "runtime"
         if "time_min" in job.resources.keys():
