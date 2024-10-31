@@ -175,7 +175,7 @@ class Executor(RemoteExecutor):
         elif job.resources.get("time_min"):
             call += f" --time={job.resources.time_min}"
         elif job.resources.get("walltime"):
-            call += f" --time={walltime}"
+            call += f" --time={job.resources.walltime}"
         else:
             self.logger.warning(
                 "No wall time information given. "
