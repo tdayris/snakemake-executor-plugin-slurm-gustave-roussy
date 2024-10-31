@@ -304,7 +304,9 @@ class Executor(RemoteExecutor):
 
         # We use this sacct syntax for argument 'starttime' to keep it compatible
         # with slurm < 20.11
-        sacct_starttime = f"{datetime.now() - timedelta(days = 2):%Y-%m-%dT%H:00}"
+        sacct_starttime = (datetime.now() - timedelta(days=2)).strftime(
+            "%Y-%m-%dT%H:00"
+        )
         # previously we had
         # f"--starttime now-2days --endtime now --name {self.run_uuid}"
         # in line 218 - once v20.11 is definitively not in use any more,
