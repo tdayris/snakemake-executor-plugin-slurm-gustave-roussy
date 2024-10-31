@@ -1,3 +1,9 @@
+# 0.5.0
+
+## Features:
+
+* Update to latest snakemake standards
+
 # 0.4.0
 
 ## Features:
