@@ -2,15 +2,19 @@ from typing import Optional
 import snakemake.common.tests
 from snakemake_interface_executor_plugins.settings import ExecutorSettingsBase
 
+from snakemake_executor_plugin_slurm import ExecutorSettings
 
-# Check out the base classes found here for all possible options and methods:
-# https://github.com/snakemake/snakemake/blob/main/snakemake/common/tests/__init__.py
-class TestWorkflowsBase(snakemake.common.tests.TestWorkflowsLocalStorageBase):
+
+class TestWorkflows(snakemake.common.tests.TestWorkflowsLocalStorageBase):
     __test__ = True
 
     def get_executor(self) -> str:
-        return "slurm-gustave-roussy"
+        return "slurm"
 
     def get_executor_settings(self) -> Optional[ExecutorSettingsBase]:
-        # instantiate ExecutorSettings of this plugin as appropriate
-        return None
+        return ExecutorSettings()
+
+
+class TestWorkflowsRequeue(TestWorkflows):
+    def get_executor_settings(self) -> Optional[ExecutorSettingsBase]:
+        return ExecutorSettings(requeue=True)
