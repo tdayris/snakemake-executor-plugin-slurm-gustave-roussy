@@ -543,35 +543,35 @@ We leave it to SLURM to resume your job(s)"""
                     return "  --partition='visuq'"
                 return " --partition='gpgpuq'"
 
-            elif hostname.startswith("flamingo"):
-                if job.resources.get("mem_mb"):
-                    mem = int(job.resources.get("mem_mb"))
-                elif job.resources.get("mem_gb"):
-                    mem = int(job.resources.get("mem_gb")) * 1_000
-                elif job.resources.get("mem"):
-                    mem = int(job.resources.get("mem"))
+            if job.resources.get("mem_mb"):
+                mem = int(job.resources.get("mem_mb"))
+            elif job.resources.get("mem_gb"):
+                mem = int(job.resources.get("mem_gb")) * 1_000
+            elif job.resources.get("mem"):
+                mem = int(job.resources.get("mem"))
 
-                if mem > 500_000:
-                    return " --partition='bigmemq'"
+            if mem > 500_000:
+                return " --partition='bigmemq'"
 
-                if job.resources.get("runtime"):
-                    runtime = int(job.resources.get("runtime"))
-                elif job.resources.get("time_min"):
-                    runtime = int(job.resources.get("time_min"))
-                elif job.resources.get("walltime"):
-                    runtime = int(job.resources.get("walltime"))
+            if job.resources.get("runtime"):
+                runtime = int(job.resources.get("runtime"))
+            elif job.resources.get("time_min"):
+                runtime = int(job.resources.get("time_min"))
+            elif job.resources.get("walltime"):
+                runtime = int(job.resources.get("walltime"))
 
-                if runtime <= 6 * 60:
-                    return " --partition='shortq'"
-                if runtime <= 24 * 60:
-                    return " --partition='mediumq'"
-                if runtime <= 7 * 34 * 60:
-                    return " --partition='longq'"
-                if runtime <= 60 * 24 * 60:
-                    return " --partition='verylongq'"
+            if runtime <= 6 * 60:
+                return " --partition='shortq'"
+            if runtime <= 24 * 60:
+                return " --partition='mediumq'"
+            if runtime <= 7 * 34 * 60:
+                return " --partition='longq'"
+            if runtime <= 60 * 24 * 60:
+                return " --partition='verylongq'"
 
         self.logger.warning(
-            "Could not select a correct partition, " "falling back to 'shortq'"
+            "Could not select a correct partition, " "falling back to 'shortq'. "
+            f"{hostname=} {runtime=} {partition=} {mem=}"
         )
 
         if partition:
