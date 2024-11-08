@@ -1,3 +1,9 @@
+# 0.5.1
+
+## Features:
+
+* Test hostname only once
+
 # 0.5.0
 
 ## Features:

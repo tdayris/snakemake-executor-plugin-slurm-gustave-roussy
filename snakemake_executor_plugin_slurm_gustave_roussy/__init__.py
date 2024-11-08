@@ -6,11 +6,11 @@ __license__ = "MIT"
 # This executor is highly based on snakemake-executor-plugin-slurm
 # its purpose is to be used on and only on Gustave Roussy's computing
 # cluster. (Flamingo, not the old ones)
-
-__author__ = "David Lähnemann, Johannes Köster, Christian Meesters"
-__copyright__ = "Copyright 2023, David Lähnemann, Johannes Köster, Christian Meesters"
-__email__ = "johannes.koester@uni-due.de"
-__license__ = "MIT"
+#
+# __author__ = "David Lähnemann, Johannes Köster, Christian Meesters"
+# __copyright__ = "Copyright 2023, David Lähnemann, Johannes Köster, Christian Meesters"
+# __email__ = "johannes.koester@uni-due.de"
+# __license__ = "MIT"
 
 import csv
 from io import StringIO
