@@ -525,7 +525,7 @@ We leave it to SLURM to resume your job(s)"""
         cmd: str = "echo ${HOSTNAME}"
         hostname: str = subprocess.check_output(
             cmd, shell=True, text=True, stderr=subprocess.PIPE
-        )
+        ).strip()
         nodes = ["flamingo-lg-01"]
         nodes += [f"n{i:0=2d}" for i in range(1, 26)]
         nodes += [f"gpu{i:0=2d}" for i in range(1, 4)]
@@ -570,7 +570,8 @@ We leave it to SLURM to resume your job(s)"""
                 return " --partition='verylongq'"
 
         self.logger.warning(
-            "Could not select a correct partition, " "falling back to 'shortq'. "
+            "Could not select a correct partition, "
+            "falling back to 'shortq'. "
             f"{hostname=} {runtime=} {partition=} {mem=}"
         )
 

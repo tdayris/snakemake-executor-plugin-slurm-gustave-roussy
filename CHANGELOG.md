@@ -1,3 +1,9 @@
+# 0.5.2
+
+## Fix:
+
+* Fix hostname parsing
+
 # 0.5.1
 
 ## Features:
