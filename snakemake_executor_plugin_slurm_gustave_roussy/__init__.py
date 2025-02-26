@@ -526,7 +526,7 @@ We leave it to SLURM to resume your job(s)"""
         hostname: str = subprocess.check_output(
             cmd, shell=True, text=True, stderr=subprocess.PIPE
         ).strip()
-        nodes = ["flamingo-lg-01"]
+        nodes = ["flamingo-lg-01", "login03"]
         nodes += [f"n{i:0=2d}" for i in range(1, 26)]
         nodes += [f"gpu{i:0=2d}" for i in range(1, 4)]
 

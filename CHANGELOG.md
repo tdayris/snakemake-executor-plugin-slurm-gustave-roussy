@@ -1,3 +1,9 @@
+# 0.5.3
+
+## Features:
+
+* New node handled
+
 # 0.5.2
 
 ## Fix:
