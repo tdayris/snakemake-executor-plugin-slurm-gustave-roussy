@@ -223,6 +223,10 @@ class Executor(RemoteExecutor):
             self.check_slurm_extra(job)
             call += f" {job.resources.slurm_extra}"
 
+        if "--gres" not in call:
+            if job.resources.get("gres"):
+                call += f" --gres {job.resources.get('gres')} "
+
         exec_job = self.format_job_exec(job)
 
         # ensure that workdir is set correctly
@@ -528,7 +532,7 @@ We leave it to SLURM to resume your job(s)"""
         ).strip()
         nodes = ["flamingo-lg-01", "login03"]
         nodes += [f"n{i:0=2d}" for i in range(1, 26)]
-        nodes += [f"gpu{i:0=2d}" for i in range(1, 4)]
+        nodes += [f"gpu{i:0=2d}" for i in range(1, 8)]
 
         if job.resources.get("slurm_partition"):
             partition = job.resources.slurm_partition
@@ -537,7 +541,7 @@ We leave it to SLURM to resume your job(s)"""
 
             if job.resources.get("gres"):
                 queue, node_type, gpu_number = job.resources.get("gres").split(":")
-                if node_type.lower().strip() in ("a100", "v100"):
+                if node_type.lower().strip() in ("a100", "v100", "h100"):
                     return " --partition='gpgpuq'"
                 if node_type.lower().strip() in ("t4"):
                     return "  --partition='visuq'"
