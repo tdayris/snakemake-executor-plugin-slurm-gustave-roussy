@@ -100,6 +100,8 @@ class Executor(RemoteExecutor):
         self._fallback_account_arg = "igr_hpc"
         self._fallback_partition = "shortq"
         self._preemption_warning = False  # no preemption warning has been issued
+        self.logger.warning("Executor plugin deprecated.")
+        self.logger.warning("Please use the official snakemake executor plugin slurm")
 
     def warn_on_jobcontext(self, done=None):
         if not done:
